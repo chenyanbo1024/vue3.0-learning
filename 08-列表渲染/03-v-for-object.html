@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-for-object</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <div id="v-for-object">
+    <ul>
+      <li v-for="(value,name,index) in myObject">{{ index }} - {{ name }} ： {{ value }}</li>
+    </ul>
+  </div>
+</body>
+
+</html>
+
+<script>
+  const app = Vue.createApp({
+    data() {
+      return {
+        myObject: {
+          title: 'How to do lists in Vue',
+          author: 'Jane Doe',
+          publishedAt: '2016-04-10'
+      }
+      }
+    }
+  })
+  app.mount('#v-for-object')
+</script>
