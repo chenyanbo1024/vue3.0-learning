@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>watch-example</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <div id="watch-example">
+    <p>
+      Ask a yes/no question:
+      <input v-model="question" />
+    </p>
+    <p>{{ answer }}</p>
+  </div>
+</body>
+
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+<script>
+  Vue.createApp({
+    data() {
+      return {
+        question: '',
+        answer: 'Questions usually contain a question mark. ;-)'
+      }
+    },
+    methods: {
+      getAnswer() {
+        this.answer = 'Thinking...'
+        axios
+          .get('https://yesno.wtf/api')
+          .then(response => {
+            this.answer = response.data.answer
+          })
+          .catch(error => {
+            this.answer = 'Error! Could not reach the API. ' + error
+          })
+      }
+    },
+    watch: {
+      question(newValue, oldValue) {
+        if (newValue.indexOf('?') > -1) {
+          this.getAnswer()
+        }
+      }
+    }
+  }).mount('#watch-example')
+</script>

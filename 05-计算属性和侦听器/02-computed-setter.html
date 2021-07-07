@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>computed-setter</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <div id="computed-setter">
+    <p>FullName: {{ fullName }}</p>
+    <p>FitstName: {{ firstName }},LastName: {{ lastName }}</p>
+    <button @click="changeName">修改名字</button>
+  </div>
+</body>
+
+</html>
+
+<script>
+  Vue.createApp({
+    data() {
+      return {
+        fullName: 'chen yanbo',
+        firstName: 'chen',
+        lastName: 'yanbo'
+      }
+    },
+    methods: {
+      changeName() {
+        this.fullName = 'chen xiaobo'
+      }
+    },
+    computed: {
+      fullName: {
+        get() {
+          return this.firstName + ' ' + this.lastName
+        },
+        set(newValue) {
+          const names = newValue.split(' ')
+          this.firstName = names[0]
+          this.lastName = names[names.length - 1]
+        }
+      }
+    }
+  }).mount('#computed-setter')
+</script>
